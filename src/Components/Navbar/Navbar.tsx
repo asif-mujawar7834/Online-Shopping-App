@@ -1,16 +1,24 @@
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsFillCloudSunFill } from "react-icons/bs";
 import { FiSun } from "react-icons/fi";
 
 import { RxCross2 } from "react-icons/rx";
-import { useStoreContext } from "../../Context/StoreContext";
 import blankPoster from "../../assets/blankposter.jpg";
+import { useAppDispatch, useAppSelector } from "../../Redux/Store";
+import { toggleTheme } from "../../Redux/ThemeSlice";
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
-
-  const { mode, toggleMode } = useStoreContext();
+  const { mode } = useAppSelector((state) => state.Theme);
+  const { cartItems } = useAppSelector((state) => state.cart);
+  const user = Boolean(localStorage.getItem("user"));
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const logout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
 
   return (
     <div className="bg-white sticky top-0 z-50  ">
@@ -73,6 +81,30 @@ export const Navbar = () => {
                       Order
                     </Link>
                   </div>
+
+                  {!user && (
+                    <div className="flow-root">
+                      <Link
+                        to={"/signin"}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                        Login
+                      </Link>
+                    </div>
+                  )}
+
+                  {!user && (
+                    <div className="flow-root">
+                      <Link
+                        to={"/signup"}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                        Signup
+                      </Link>
+                    </div>
+                  )}
 
                   <div className="flow-root">
                     <Link
@@ -206,20 +238,46 @@ export const Navbar = () => {
                   >
                     Order
                   </Link>
-                  <Link
-                    to={"/dashboard"}
-                    className="text-sm font-medium text-gray-700 "
-                    style={{ color: mode === "dark" ? "white" : "" }}
-                  >
-                    Admin
-                  </Link>
 
-                  <a
-                    className="text-sm font-medium text-gray-700 cursor-pointer  "
-                    style={{ color: mode === "dark" ? "white" : "" }}
-                  >
-                    Logout
-                  </a>
+                  {user && (
+                    <Link
+                      to={"/dashboard"}
+                      className="text-sm font-medium text-gray-700 "
+                      style={{ color: mode === "dark" ? "white" : "" }}
+                    >
+                      Admin
+                    </Link>
+                  )}
+
+                  {user && (
+                    <a
+                      className="text-sm font-medium text-gray-700 cursor-pointer  "
+                      style={{ color: mode === "dark" ? "white" : "" }}
+                      onClick={logout}
+                    >
+                      Logout
+                    </a>
+                  )}
+
+                  {!user && (
+                    <Link
+                      to={"/login"}
+                      className="text-sm font-medium text-gray-700 cursor-pointer  "
+                      style={{ color: mode === "dark" ? "white" : "" }}
+                    >
+                      Login
+                    </Link>
+                  )}
+
+                  {!user && (
+                    <Link
+                      className="text-sm font-medium text-gray-700 cursor-pointer  "
+                      style={{ color: mode === "dark" ? "white" : "" }}
+                      to={"/signup"}
+                    >
+                      Signup
+                    </Link>
+                  )}
                 </div>
 
                 <div className="hidden lg:ml-8 lg:flex">
@@ -249,10 +307,10 @@ export const Navbar = () => {
 
                 {/* Search */}
                 <div className="flex lg:ml-6">
-                  <button className="" onClick={toggleMode}>
+                  <button onClick={() => dispatch(toggleTheme(null))}>
                     {/* <MdDarkMode size={35} style={{ color: mode === 'dark' ? 'white' : '' }} /> */}
                     {mode === "light" ? (
-                      <FiSun className="" size={30} />
+                      <FiSun size={30} />
                     ) : "dark" ? (
                       <BsFillCloudSunFill size={30} />
                     ) : (
@@ -287,7 +345,7 @@ export const Navbar = () => {
                       className="ml-2 text-sm font-medium text-gray-700 group-"
                       style={{ color: mode === "dark" ? "white" : "" }}
                     >
-                      0
+                      {cartItems.length}
                     </span>
                     <span className="sr-only">items in cart, view bag</span>
                   </Link>

@@ -1,7 +1,7 @@
-import { useStoreContext } from "../../Context/StoreContext";
+import { useAppSelector } from "../../Redux/Store";
 
 export const Filter = () => {
-  const { mode } = useStoreContext();
+  const { mode } = useAppSelector((state) => state.Theme);
 
   return (
     <div>

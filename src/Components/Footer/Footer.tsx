@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useStoreContext } from "../../Context/StoreContext";
+import { useAppSelector } from "../../Redux/Store";
 
 export const Footer = () => {
-  const { mode } = useStoreContext();
+  const { mode } = useAppSelector((state) => state.Theme);
   return (
     <footer
       className="text-gray-600 body-font bg-gray-300"
