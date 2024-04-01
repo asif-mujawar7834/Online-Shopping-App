@@ -38,6 +38,7 @@ export const Dashboard = () => {
       <div className="grid gap-4 p-5 lg:grid-cols-3 sm:grid-cols-2">
         {cards.map((card) => (
           <div
+            key={card.id}
             className={`border ${
               mode === "light" ? "border-black" : "border-white"
             } p-5 rounded-md text-center`}

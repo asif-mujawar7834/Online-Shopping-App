@@ -49,3 +49,11 @@ export const productCategories = [
     link: "/category/smartwatch",
   },
 ];
+
+export const shoppingLogoHeader = "Shopping App";
+
+export const bannerImages = [
+  "https://png.pngtree.com/thumb_back/fh260/background/20220215/pngtree-double-eleven-2-5d-mobile-phone-shopping-banner-poster-image_924667.jpg",
+  "https://static.vecteezy.com/system/resources/thumbnails/002/006/967/small/young-women-takes-a-shopping-cart-and-enjoy-online-shopping-through-smartphones-choose-to-buy-gifts-valentine-s-day-concepts-website-or-mobile-phone-application-flat-design-illustration-vector.jpg",
+  "https://t4.ftcdn.net/jpg/03/47/83/19/360_F_347831937_oNJFzFUwEGfoKmUKj3ikH3jaYOQ9OEl3.jpg",
+];

@@ -43,89 +43,86 @@ function Cart() {
             <h1 className="mb-10 text-center text-2xl font-bold">Cart Items</h1>
             <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0 ">
               <div className="rounded-lg md:w-2/3 ">
-                {cartItems.map((item) => {
-                  return (
-                    <div
-                      className="justify-between mb-6 rounded-lg border  drop-shadow-xl bg-white p-6  sm:flex  sm:justify-start"
-                      style={{
-                        backgroundColor: mode === "dark" ? "rgb(32 33 34)" : "",
-                        color: mode === "dark" ? "white" : "",
-                      }}
-                    >
-                      <div>
-                        <img
-                          src={item.imageUrl}
-                          alt="product-image"
-                          className="max-h-auto mx-auto rounded-lg sm:w-40"
-                        />
-                      </div>
-                      <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                        <div className="mt-5 sm:mt-0">
-                          <h2
-                            className="text-lg font-bold text-gray-900"
+                {cartItems.map((item, index) => (
+                  <div
+                    key={index}
+                    className="justify-between mb-6 rounded-lg border  drop-shadow-xl bg-white p-6  sm:flex  sm:justify-start"
+                    style={{
+                      backgroundColor: mode === "dark" ? "rgb(32 33 34)" : "",
+                      color: mode === "dark" ? "white" : "",
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={item.imageUrl}
+                        alt="product-image"
+                        className="max-h-auto mx-auto rounded-lg sm:w-40"
+                      />
+                    </div>
+                    <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+                      <div className="mt-5 sm:mt-0">
+                        <h2
+                          className="text-lg font-bold text-gray-900"
+                          style={{ color: mode === "dark" ? "white" : "" }}
+                        >
+                          {item.title}
+                        </h2>
+                        <h2
+                          className="text-sm  text-gray-900"
+                          style={{ color: mode === "dark" ? "white" : "" }}
+                        >
+                          {item.description}
+                        </h2>
+                        <div className="flex items-center justify-between mt-3">
+                          <p
+                            className="mt-1 text-lg font-bold text-gray-700"
                             style={{ color: mode === "dark" ? "white" : "" }}
                           >
-                            {item.title}
-                          </h2>
-                          <h2
-                            className="text-sm  text-gray-900"
-                            style={{ color: mode === "dark" ? "white" : "" }}
-                          >
-                            {item.description}
-                          </h2>
-                          <div className="flex items-center justify-between mt-3">
-                            <p
-                              className="mt-1 text-lg font-bold text-gray-700"
-                              style={{ color: mode === "dark" ? "white" : "" }}
+                            ₹{item.price}
+                          </p>
+                          <div>
+                            <button
+                              className="p-2  rounded-full text-white bg-violet-600 hover:bg-violet-800"
+                              disabled={item.count === 1}
+                              onClick={() => {
+                                dispatch(
+                                  increaseDecreaseCartProductCount({
+                                    id: item.id,
+                                    flag: false,
+                                  })
+                                );
+                              }}
                             >
-                              ₹{item.price}
-                            </p>
-                            <div>
-                              <button
-                                className="p-2  rounded-full text-white bg-violet-600 hover:bg-violet-800"
-                                disabled={item.count === 1}
-                                onClick={() => {
-                                  dispatch(
-                                    increaseDecreaseCartProductCount({
-                                      id: item.id,
-                                      flag: false,
-                                    })
-                                  );
-                                }}
-                              >
-                                <FaMinus />
-                              </button>
+                              <FaMinus />
+                            </button>
 
-                              <span className="font-bold mx-2">
-                                {item.count}
-                              </span>
-                              <button
-                                className="p-2  rounded-full text-white bg-violet-600 hover:bg-violet-800"
-                                disabled={item.count === 10}
-                                onClick={() => {
-                                  dispatch(
-                                    increaseDecreaseCartProductCount({
-                                      id: item.id,
-                                      flag: true,
-                                    })
-                                  );
-                                }}
-                              >
-                                <FaPlus />
-                              </button>
-                            </div>
+                            <span className="font-bold mx-2">{item.count}</span>
+                            <button
+                              className="p-2  rounded-full text-white bg-violet-600 hover:bg-violet-800"
+                              disabled={item.count === 10}
+                              onClick={() => {
+                                dispatch(
+                                  increaseDecreaseCartProductCount({
+                                    id: item.id,
+                                    flag: true,
+                                  })
+                                );
+                              }}
+                            >
+                              <FaPlus />
+                            </button>
                           </div>
                         </div>
-                        <div
-                          onClick={() => deleteCart(item)}
-                          className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6"
-                        >
-                          <FaTrash className="text-red-500 rounded-sm h-7 w-7 p-1 border-red-500 cursor-pointer" />
-                        </div>
+                      </div>
+                      <div
+                        onClick={() => deleteCart(item)}
+                        className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6"
+                      >
+                        <FaTrash className="text-red-500 rounded-sm h-7 w-7 p-1 border-red-500 cursor-pointer" />
                       </div>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
 
               <div

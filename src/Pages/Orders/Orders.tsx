@@ -15,9 +15,10 @@ export const Orders = () => {
           {orders
             .filter((obj) => obj.userid == userid)
             .map((order) => {
-              return order.cartItems.map((item) => {
+              return order.cartItems.map((item, index) => {
                 return (
                   <Link
+                    key={index}
                     to={`/productinfo/${item.id}`}
                     className="rounded-lg md:w-2/3 cursor-pointer"
                   >
