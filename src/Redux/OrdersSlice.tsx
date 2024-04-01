@@ -48,8 +48,14 @@ const OrdersSlice: Slice<initialStateType> = createSlice({
         }),
       };
     },
+    addOrder: (state, action) => {
+      return {
+        ...state,
+        orders: [action.payload, ...state.orders],
+      };
+    },
   },
 });
 
-export const { setOrdersList, updateOrder } = OrdersSlice.actions;
+export const { setOrdersList, updateOrder, addOrder } = OrdersSlice.actions;
 export default OrdersSlice.reducer;

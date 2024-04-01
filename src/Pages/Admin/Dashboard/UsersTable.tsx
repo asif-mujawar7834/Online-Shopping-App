@@ -45,7 +45,11 @@ export const UsersTable = () => {
           </thead>
           <tbody>
             {users.map((el, index) => (
-              <tr className="border border-black">
+              <tr
+                className={`border ${
+                  mode === "light" ? "border-black" : "border-white"
+                }`}
+              >
                 <td
                   className="p-5"
                   style={{ color: mode === "dark" ? "white" : "" }}

@@ -44,27 +44,18 @@ const AllProductsSlice: Slice<initialStateType> = createSlice({
   initialState,
   reducers: {
     getAllProducts: (state, action) => {
-      return {
-        ...state,
-        allProductsList: action.payload,
-      };
+      state.allProductsList = action.payload;
     },
     addNewProduct: (state, action) => {
-      return {
-        ...state,
-        allProductsList: [action.payload, ...state.allProductsList],
-      };
+      state.allProductsList = [action.payload, ...state.allProductsList];
     },
     updateProduct: (state, action) => {
-      return {
-        ...state,
-        allProductsList: state.allProductsList.map((product) => {
-          if (product.id === action.payload.id) {
-            return action.payload;
-          }
-          return product;
-        }),
-      };
+      state.allProductsList = state.allProductsList.map((product) => {
+        if (product.id === action.payload.id) {
+          return action.payload;
+        }
+        return product;
+      });
     },
   },
 });

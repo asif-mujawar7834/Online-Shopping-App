@@ -8,6 +8,7 @@ import { RxCross2 } from "react-icons/rx";
 import blankPoster from "../../assets/blankposter.jpg";
 import { useAppDispatch, useAppSelector } from "../../Redux/Store";
 import { toggleTheme } from "../../Redux/ThemeSlice";
+import { shoppingLogoHeader } from "../../utils/StaticData";
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { mode } = useAppSelector((state) => state.Theme);
@@ -185,13 +186,12 @@ export const Navbar = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke="currentColor"
                   className="w-6 h-6"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
                     d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                   />
                 </svg>
@@ -205,7 +205,7 @@ export const Navbar = () => {
                       className=" text-2xl font-bold text-black  px-2 py-1 rounded"
                       style={{ color: mode === "dark" ? "white" : "" }}
                     >
-                      E-Bharat
+                      {shoppingLogoHeader}
                     </h1>
                   </div>
                 </Link>

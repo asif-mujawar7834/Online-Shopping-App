@@ -12,11 +12,8 @@ const LoadingSlice: Slice<initialStateType> = createSlice({
   name: "Loading",
   initialState,
   reducers: {
-    setLoading: (state, action) => {
-      return {
-        ...state,
-        isLoading: action.payload,
-      };
+    setLoading(state, action) {
+      state.isLoading = action.payload;
     },
   },
 });

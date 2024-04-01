@@ -20,7 +20,11 @@ export const ProductsTable = () => {
     }
   };
   return (
-    <div className="m-5 overflow-hidden border border-black rounded-lg font-semibold">
+    <div
+      className={`m-5 overflow-hidden border ${
+        mode === "light" ? "border-black" : "border-white"
+      } rounded-lg font-semibold`}
+    >
       <section className="overflow-auto h-[80vh] rounded-lg">
         <table className="p-1 text-center w-full">
           <thead>
@@ -50,7 +54,12 @@ export const ProductsTable = () => {
           </thead>
           <tbody>
             {allProductsList.map((el, index) => (
-              <tr className="border border-black">
+              <tr
+                key={el.id}
+                className={`border ${
+                  mode === "light" ? "border-black" : "border-white"
+                }`}
+              >
                 <td
                   className="p-5"
                   style={{ color: mode === "dark" ? "white" : "" }}
@@ -104,7 +113,11 @@ export const ProductsTable = () => {
                     <FaTrash />
                   </button>
                   <Link to={`/updateproduct/${el.id}`}>
-                    <button className="text-black p-2 rounded-full border border-black">
+                    <button
+                      className={`p-2 rounded-full border ${
+                        mode === "light" ? "border-black" : "border-white"
+                      }`}
+                    >
                       <FaPen />
                     </button>
                   </Link>

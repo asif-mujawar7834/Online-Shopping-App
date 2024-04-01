@@ -28,7 +28,7 @@ export const ProductByCategory = () => {
             </div>
             <div className="grid gap-4 lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2">
               {productsByCategory.map((item) => (
-                <Card item={item} />
+                <Card item={item} key={item.id} />
               ))}
             </div>
           </div>

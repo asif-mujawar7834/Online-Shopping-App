@@ -64,7 +64,11 @@ export const OrdersTable = () => {
           <tbody>
             {orders.map((item) => {
               return item.cartItems.map((el) => (
-                <tr className="border border-black">
+                <tr
+                  className={`border ${
+                    mode === "light" ? "border-black" : "border-white"
+                  }`}
+                >
                   <td
                     className="p-5 min-w-44 max-h-48"
                     style={{ color: mode === "dark" ? "white" : "" }}

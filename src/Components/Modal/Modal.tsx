@@ -1,10 +1,11 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { ChangeEvent, FormEvent, Fragment, useState } from "react";
-import { useAppSelector } from "../../Redux/Store";
+import { useAppDispatch, useAppSelector } from "../../Redux/Store";
 import { addDoc, collection } from "firebase/firestore";
 import { fireDB } from "../../Firebase/FirebaseConfig";
 import { toast } from "react-toastify";
 import { FormInputField } from "../FormFields/FormInputField";
+import { addOrder } from "../../Redux/OrdersSlice";
 
 const defaultState = {
   name: "",
@@ -16,6 +17,7 @@ const defaultState = {
 export const Modal = () => {
   const [addressInfo, setAddressInfo] = useState(defaultState);
   const { cartItems } = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -29,7 +31,6 @@ export const Modal = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    alert("Hello");
     const user = localStorage.getItem("user");
     const orderInfo = {
       cartItems: cartItems.map((el) => ({ ...el, status: "order confirmed" })),
@@ -44,6 +45,7 @@ export const Modal = () => {
     };
     try {
       addDoc(collection(fireDB, "orders"), orderInfo);
+      dispatch(addOrder(orderInfo));
       toast.success("Order Placed Successfully.!", {
         position: "top-center",
         autoClose: 1000,

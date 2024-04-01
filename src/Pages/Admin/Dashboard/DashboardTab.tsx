@@ -3,7 +3,9 @@ import { UsersTable } from "./UsersTable";
 import { ProductsTable } from "./ProductsTable";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../../Redux/Store";
 export const DashboardTab = () => {
+  const { mode } = useAppSelector((state) => state.Theme);
   const [tab, setTab] = useState(0);
 
   const components = [
@@ -23,7 +25,11 @@ export const DashboardTab = () => {
   return (
     <div className="container mx-auto">
       <div className="flex items-center justify-between mx-5">
-        <div className="border border-slate-400 rounded-md inline-flex font-bold">
+        <div
+          className={`${
+            mode === "light" ? "text-black" : "text-white"
+          } border border-slate-400 rounded-md inline-flex font-bold`}
+        >
           <button
             className={`px-5 py-3 ${
               tab === 0 && "bg-[#2874f0] text-white font-bold rounded-md"

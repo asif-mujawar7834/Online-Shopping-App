@@ -14,6 +14,8 @@ export const Store = configureStore({
     Loading: LoadingSlice,
     Orders: OrdersSlice,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
   devTools: true,
 });
 

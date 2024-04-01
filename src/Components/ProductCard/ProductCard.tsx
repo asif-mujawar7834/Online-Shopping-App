@@ -20,7 +20,7 @@ export const ProductCard = () => {
 
         <div className="grid gap-4 p-5 lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2">
           {allProductsList.map((item) => (
-            <Card item={item} />
+            <Card item={item} key={item.id} />
           ))}
         </div>
       </div>
