@@ -66,7 +66,7 @@ export const Navbar = () => {
                 </div>
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <Link
-                    to={"/allproducts"}
+                    to={"/"}
                     className="text-sm font-medium text-gray-900 "
                     style={{ color: mode === "dark" ? "white" : "" }}
                   >
@@ -162,16 +162,6 @@ export const Navbar = () => {
 
       {/* desktop  */}
       <header className="relative bg-white">
-        <p
-          className="flex h-10 items-center justify-center bg-pink-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8"
-          style={{
-            backgroundColor: mode === "dark" ? "rgb(62 64 66)" : "",
-            color: mode === "dark" ? "white" : "",
-          }}
-        >
-          Get free delivery on orders over ₹300
-        </p>
-
         <nav
           aria-label="Top"
           className="bg-gray-100 px-4 sm:px-6 lg:px-8 shadow-xl "
@@ -225,7 +215,7 @@ export const Navbar = () => {
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   <Link
-                    to={"/allproducts"}
+                    to={"/"}
                     className="text-sm font-medium text-gray-700 "
                     style={{ color: mode === "dark" ? "white" : "" }}
                   >
@@ -245,7 +235,7 @@ export const Navbar = () => {
                       className="text-sm font-medium text-gray-700 "
                       style={{ color: mode === "dark" ? "white" : "" }}
                     >
-                      Admin
+                      Dashboard
                     </Link>
                   )}
 
