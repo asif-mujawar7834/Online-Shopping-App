@@ -50,7 +50,6 @@ export const UpdateProduct = () => {
       toast.error("Something Went Wrong While Adding Product!.");
       dispatch(setLoading(false));
     }
-    // setProduct(null);
   };
 
   useEffect(() => {
@@ -59,7 +58,6 @@ export const UpdateProduct = () => {
         if (id) {
           const docRef = doc(fireDB, "products", id);
           const docSnapshot = await getDoc(docRef);
-          // Check if document exists
           if (docSnapshot.exists()) {
             setProduct(docSnapshot.data() as productType);
           } else {

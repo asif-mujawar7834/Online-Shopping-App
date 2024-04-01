@@ -29,6 +29,7 @@ import Cart from "./Pages/Cart/Cart";
 import { setOrdersList } from "./Redux/OrdersSlice";
 import { AdminAuthProvider } from "./Components/Auth/AdminAuthProvider";
 import { AuthProvider } from "./Components/Auth/AuthProvider";
+import { ProductByCategory } from "./Components/ProductByCategory/ProductByCategory";
 function App() {
   const { isLoading } = useAppSelector((state) => state.Loading);
   const dispatch = useAppDispatch();
@@ -129,6 +130,7 @@ function App() {
               </AdminAuthProvider>
             }
           />
+          <Route path="/category/:category" element={<ProductByCategory />} />
           <Route path="/*" element={<NoPage />} />
         </Routes>
       </Router>

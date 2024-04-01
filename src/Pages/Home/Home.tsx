@@ -1,3 +1,4 @@
+import { Categories } from "../../Components/Categories/Categories";
 import Filter from "../../Components/Filter/Filter";
 import { HeroSection } from "../../Components/HeroSection/HeroSection";
 import Layout from "../../Components/Layout/Layout";
@@ -9,6 +10,7 @@ export const Home = () => {
   return (
     <Layout>
       <HeroSection />
+      <Categories />
       <Filter />
       <ProductCard />
       <Track />
