@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { fireDB } from "../../Firebase/FirebaseConfig";
 import { useNavigate, useParams } from "react-router-dom";
 import { setLoading } from "../../Redux/LoadingSlice";
 import { useAppDispatch } from "../../Redux/Store";
+import { FormInputField } from "../../Components/FormFields/FormInputField";
+import { updateProduct } from "../../Redux/AllProductsSlice";
 
 interface productType {
   title: string;
@@ -26,24 +28,15 @@ export const UpdateProduct = () => {
   });
   const navigate = useNavigate();
 
-  const addProduct = async () => {
+  const addProduct = async (e: FormEvent) => {
+    e.preventDefault();
     dispatch(setLoading(true));
-    if (
-      !product?.title ||
-      !product?.imageUrl ||
-      !product?.price ||
-      !product?.category ||
-      !product?.description
-    ) {
-      dispatch(setLoading(false));
-      return toast.error("Please fill all fields");
-    }
-
     try {
       if (id) {
         await setDoc(doc(fireDB, "products", id), product);
         toast.success("Product Add successfully");
         navigate("/dashboard");
+        dispatch(updateProduct({ ...product, id }));
         dispatch(setLoading(false));
       }
     } catch (error) {
@@ -71,84 +64,91 @@ export const UpdateProduct = () => {
     fetchProductById();
   }, []);
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setProduct((prevValue) => ({
+      ...prevValue,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const inputFieldData = [
+    {
+      id: 1,
+      name: "title",
+      required: true,
+      value: product.title,
+      errorMessage: "Enter valid product title",
+      type: "text",
+      pattern: /[\S\s()]+[\S()]+/,
+      onChange: handleChange,
+      placeholder: "Enter product title",
+    },
+    {
+      id: 2,
+      name: "price",
+      required: true,
+      value: product.price,
+      errorMessage: "Enter valid price",
+      type: "text",
+      pattern: "^[0-9]+$",
+      onChange: handleChange,
+      placeholder: "Enter product price",
+    },
+    {
+      id: 3,
+      name: "imageUrl",
+      required: true,
+      value: product.imageUrl,
+      errorMessage: "Enter valid image url",
+      type: "text",
+      onChange: handleChange,
+      pattern:
+        /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi,
+      placeholder: "Enter product image url",
+    },
+    {
+      id: 4,
+      name: "category",
+      required: true,
+      value: product.category,
+      errorMessage: "Enter valid product category",
+      type: "text",
+      onChange: handleChange,
+      pattern: /^[\w]+([-_\s]{1}[a-z0-9]+)*$/i,
+      placeholder: "Enter product category",
+    },
+    {
+      id: 5,
+      name: "description",
+      required: true,
+      value: product.description,
+      errorMessage: "Enter valid product description",
+      type: "text",
+      pattern: /[\S\s()]+[\S()]+/,
+      onChange: handleChange,
+      placeholder: "Enter product description",
+    },
+  ];
+
   return (
     <div>
       <div className=" flex justify-center items-center h-screen">
-        <div className=" bg-gray-800 px-10 py-10 rounded-xl ">
+        <div className=" bg-gray-800 px-10 py-10 rounded-xl w-96">
           <div className="">
             <h1 className="text-center text-white text-xl mb-4 font-bold">
               Update Product
             </h1>
           </div>
-          <div>
-            <input
-              type="text"
-              onChange={(e) =>
-                setProduct({ ...product, title: e.target.value })
-              }
-              value={product?.title}
-              name="title"
-              className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
-              placeholder="Product title"
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              name="price"
-              onChange={(e) =>
-                setProduct({ ...product, price: e.target.value })
-              }
-              value={product.price}
-              className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
-              placeholder="Product price"
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              name="imageurl"
-              onChange={(e) =>
-                setProduct({ ...product, imageUrl: e.target.value })
-              }
-              value={product.imageUrl}
-              className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
-              placeholder="Product imageUrl"
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              name="category"
-              onChange={(e) =>
-                setProduct({ ...product, category: e.target.value })
-              }
-              value={product.category}
-              className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
-              placeholder="Product category"
-            />
-          </div>
-          <div>
-            <textarea
-              cols={30}
-              rows={10}
-              name="description"
-              value={product.description}
-              onChange={(e) =>
-                setProduct({ ...product, description: e.target.value })
-              }
-              className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
-              placeholder="Product title"
-            ></textarea>
-          </div>
-          <div className=" flex justify-center mb-3">
-            <button
-              onClick={addProduct}
-              className=" bg-yellow-500 w-full text-black font-bold  px-2 py-2 rounded-lg"
-            >
+          <form className="flex flex-col gap-6" onSubmit={addProduct}>
+            <div className="flex flex-col gap-4">
+              {inputFieldData.map((input) => (
+                <FormInputField key={input.id} {...input} />
+              ))}
+            </div>
+            <button className=" bg-yellow-500 w-full text-black font-bold  px-2 py-2 rounded-lg">
               Update Product
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

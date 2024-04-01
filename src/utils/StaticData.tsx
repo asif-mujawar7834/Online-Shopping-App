@@ -41,4 +41,11 @@ export const productCategories = [
       "https://rukminim2.flixcart.com/image/612/612/xif0q/shirt/6/m/m/l-st27-vebnor-original-imagtyvhhersjfwr.jpeg?q=70",
     link: "/category/shirts",
   },
+  {
+    id: 7,
+    label: "Smart Watch",
+    imageUrl:
+      "https://rukminim2.flixcart.com/image/612/612/xif0q/smartwatch/x/f/g/-original-imagxp8tbbnskcah.jpeg?q=70",
+    link: "/category/smartwatch",
+  },
 ];
