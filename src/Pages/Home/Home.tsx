@@ -1,5 +1,4 @@
 import { Categories } from "../../Components/Categories/Categories";
-import Filter from "../../Components/Filter/Filter";
 import { HeroSection } from "../../Components/HeroSection/HeroSection";
 import Layout from "../../Components/Layout/Layout";
 import { ProductCard } from "../../Components/ProductCard/ProductCard";
@@ -11,7 +10,6 @@ export const Home = () => {
     <Layout>
       <HeroSection />
       <Categories />
-      <Filter />
       <ProductCard />
       <Track />
       <Testimonial />

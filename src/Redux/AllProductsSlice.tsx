@@ -55,8 +55,20 @@ const AllProductsSlice: Slice<initialStateType> = createSlice({
         allProductsList: [action.payload, ...state.allProductsList],
       };
     },
+    updateProduct: (state, action) => {
+      return {
+        ...state,
+        allProductsList: state.allProductsList.map((product) => {
+          if (product.id === action.payload.id) {
+            return action.payload;
+          }
+          return product;
+        }),
+      };
+    },
   },
 });
 
-export const { getAllProducts, addNewProduct } = AllProductsSlice.actions;
+export const { getAllProducts, addNewProduct, updateProduct } =
+  AllProductsSlice.actions;
 export default AllProductsSlice.reducer;

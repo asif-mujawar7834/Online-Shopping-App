@@ -5,6 +5,7 @@ import { FaUser, FaShoppingBag, FaBox } from "react-icons/fa";
 export const Dashboard = () => {
   const { allProductsList } = useAppSelector((state) => state.AllProducts);
   const { orders } = useAppSelector((state) => state.Orders);
+  const { mode } = useAppSelector((state) => state.Theme);
 
   const cards = [
     {
@@ -36,7 +37,11 @@ export const Dashboard = () => {
     <Layout>
       <div className="grid gap-4 p-5 lg:grid-cols-3 sm:grid-cols-2">
         {cards.map((card) => (
-          <div className="border border-black p-5 rounded-md text-center">
+          <div
+            className={`border ${
+              mode === "light" ? "border-black" : "border-white"
+            } p-5 rounded-md text-center`}
+          >
             {card.icon}
             <span className="font-bold text-3xl text-slate-700">
               {card.count}
